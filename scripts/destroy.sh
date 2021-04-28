@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# Destroy the node installation and its data.
+#
+set -e
+
+source ./scripts/lib/start.source.sh
+source "$BASE"/scripts/lib/source-env.source.sh
+
+"$BASE"/scripts/docker-compose.sh down -v
+docker network rm "$DOCKERNETWORK" || echo 'docker network cannot be deleted; moving on.'
+
+rm -rf "$BASE"/do-not-commit
+rm "$BASE"/.env
+
+source ./scripts/lib/end.source.sh

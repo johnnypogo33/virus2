@@ -1,0 +1,8 @@
+FROM my/starterkit-node
+
+# development stuff
+RUN npm install --save-dev mocha chai
+RUN npm install --save-dev sinon
+RUN npm install forever -g
+
+CMD [ "forever", "app/server.js" ]
