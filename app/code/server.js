@@ -8,10 +8,11 @@
   'use strict';
   const express = require('express');
   const mongoose = require('mongoose');
+  const database = require('./database.js');
 
-  const dbUrl = 'mongodb://' + process.env.MONGO_USER + ':' + process.env.MONGO_PASS + '@' + process.env.MONGO_HOST + ':' + process.env.MONGO_PORT + '/' + process.env.MONGO_DB + '?authSource=admin';
+  const dbUrl = database.url();
 
-  mongoose.connect(dbUrl , (err) => {
+  mongoose.connect(dbUrl, (err) => {
     console.log('mongodb connected',err);
   });
 
