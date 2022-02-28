@@ -2,4 +2,4 @@ DOCKERNETWORK=starterkitnode
 # Use a random number between 8000 and 8999
 # This will be overridden by what's in the unversioned .env file; which is
 # useful if you have several instances on the same machine.
-DOCKERPORT=8428
+DOCKERPORT=8509
