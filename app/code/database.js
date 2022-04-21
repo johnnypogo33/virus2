@@ -1,30 +1,34 @@
+// @flow
 /**
  * My database module.
  *
  * Interact with the database.
  */
 
-(function () {
-  'use strict';
+class Singleton {
+  async init() {
+    await this.mongoose().connect(this.uri());
+  }
+  async exitGracefully() {
+    await this.mongoose().disconnect();
+  }
+  mongoose() {
+    // $FlowExpectedError
+    return require('mongoose');
+  }
+  env() {
+    return require('./env.js');
+  }
+  uri() {
+    const user = String(this.env().required('MONGO_USER'));
+    const pass = String(this.env().required('MONGO_PASS'));
+    const host = String(this.env().required('MONGO_HOST'));
+    const port = String(this.env().required('MONGO_PORT'));
+    const db = String(this.env().required('MONGO_DB'));
 
-  const mongoose = require('mongoose');
-  const env = require('./env.js');
+    return 'mongodb://' + user + ':' + pass + '@' + host + ':' + port + '/' + db + '?authSource=admin';
+  }
+}
 
-  module.exports = {
-    init: function() {
-      mongoose.connect(this.url(), (err) => {
-        console.log('mongodb connected',err);
-      });
-    },
-    url: function() {
-      const user = String(env.required('MONGO_USER'));
-      const pass = String(env.required('MONGO_PASS'));
-      const host = String(env.required('MONGO_HOST'));
-      const port = String(env.required('MONGO_PORT'));
-      const db = String(env.required('MONGO_DB'));
-
-      return 'mongodb://' + user + ':' + pass + '@' + host + ':' + port + '/' + db + '?authSource=admin';
-    },
-  };
-
-}());
+// $FlowExpectedError
+module.exports = new Singleton();
