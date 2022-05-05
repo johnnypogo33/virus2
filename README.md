@@ -19,7 +19,14 @@ This will give you a URL, username and password.
 
 Now log on using the the credentials provided.
 
-You will be able to use a simple chat application, and log out if you want.
+You will be able to use a simple chat application, and log out.
+
+Creating new users
+-----
+
+You can run:
+
+    ./scripts/reset-password.sh some-new-user
 
 Resources
 -----
