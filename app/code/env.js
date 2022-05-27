@@ -1,20 +1,30 @@
+// @flow
 /**
  * Get environment variables.
  */
 
-(function () {
-  'use strict';
+class Singleton {
+  required(
+    name /*:: : string */
+  ) {
+    const candidate = process.env[name];
+    if (typeof candidate === 'undefined') {
+      throw Error('Environemnt variable ' + name + ' is required.');
+    }
+    return String(candidate);
+  }
 
-  module.exports = {
-    required: function(name) {
-      const candidate = process.env[name];
-      console.log(name);
-      if (typeof candidate === 'undefined') {
-        throw Error('Environemnt variable ' + name + ' is required.');
-      }
-      console.log(candidate);
-      return String(candidate);
-    },
-  };
+  getOrFallback(
+    name /*:: : string */,
+    fallback /*:: : string */
+  ) {
+    const candidate = process.env[name];
+    if (typeof candidate === 'undefined' || candidate === '') {
+      return fallback;
+    }
+    return String(candidate);
+  }
+}
 
-}());
+// $FlowExpectedError
+module.exports = new Singleton();

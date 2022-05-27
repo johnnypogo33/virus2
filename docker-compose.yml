@@ -6,6 +6,7 @@ services:
     build: .
     volumes:
       - "./app/static:/usr/src/app/static"
+      - "./app/private:/usr/src/app/private"
       - "./app/code:/usr/src/app/app"
       - "./app/test:/usr/src/app/test"
     links:
@@ -25,6 +26,7 @@ services:
       - VIRTUAL_HOST=www.notavirus.ca
       - LETSENCRYPT_HOST=www.notavirus.ca
       - LETSENCRYPT_EMAIL="letsencrypt@www.notavirus.ca"
+      - EXPRESS_SESSION_SECRET=${EXPRESS_SESSION_SECRET}
 
     ports:
       - "${DOCKERPORT}:8080"
