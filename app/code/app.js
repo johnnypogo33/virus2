@@ -187,7 +187,7 @@ class Singleton {
       })(req, res, next);
     });
 
-    app.get('/', this.authentication().loggedIn,
+    app.get('/chat', this.authentication().loggedIn,
       (req, res) => {
         res.sendFile('private.html',
         { root: '/usr/src/app/private' });

@@ -1,0 +1,111 @@
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <script src="utilitaires.js"></script>
+    <script src="collectible.js"></script>
+    <script src="collectible-avancer-temps.js"></script>
+    <script src="collectible-guerir.js"></script>
+    <script src="collectible-objectif.js"></script>
+    <script src="fonctionDevAbstrait.js"></script>
+    <script src="fonctionDevGagnerNiveau.js"></script>
+    <script src="fonctionDevPerdreNiveau.js"></script>
+    <script src="objectifAbstrait.js"></script>
+    <script src="objectifCollectibles.js"></script>
+    <script src="objectifTemps.js"></script>
+    <script src="obstacleAbstrait.js"></script>
+    <script src="niveauAbstrait.js"></script>
+    <script src="niveauCreation.js"></script>
+    <script src="niveauTutoriel.js"></script>
+    <script src="niveauTutoriel2.js"></script>
+    <script src="niveauTutoriel3.js"></script>
+    <script src="niveauTutoriel4.js"></script>
+    <script src="niveauTutoriel5.js"></script>
+    <script src="niveauTutoriel6.js"></script>
+    <script src="niveauBienvenue.js"></script>
+    <script src="niveau-panneau.js"></script>
+    <script src="niveau-1.js"></script>
+    <script src="niveau-2.js"></script>
+    <script src="niveau-3.js"></script>
+    <script src="niveau-4.js"></script>
+    <script src="niveau-5.js"></script>
+    <script src="jeu.js"></script>
+    <script src="controlleur.js"></script>
+    <script src="point.js"></script>
+    <script src="script.js"></script>
+    <script src="sons.js"></script>
+    <script src="effetsSonores.js"></script>
+    <script src="musique.js"></script>
+    <meta charset="UTF-8">
+  </head>
+  <body data-en-pause="non">
+    <div class="panneau ecran-de-bienvenue">
+      <div class="container">
+        <h1 class="titre">Virus</h1>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4">
+          </div>
+          <div class="col-lg-4">
+            <button type="submit" class="bouton-prochain-niveau icon icon-play center">Niveau 1</button>
+          </div>
+          <div class="col-lg-4">
+            <button type="button" class="bouton-selection-niveau icon icon-menu center">selection de niveaux</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panneau prochain-niveau">
+      <h1 class="titre">VOUS AVEZ GAGNE!</h1>
+      <button type="button" class="bouton-niveau-suivant">Cliquez ici pour continuer au niveau suivant</button>
+      <button type="button" class="bouton-selection-niveau">Cliquez ici pour selectionner un niveau</button>
+    </div>
+    <div class="panneau game-over">
+      <h1 class="titre">GAME OVER</h1>
+      <button type="button" class="bouton-prochain-niveau cache-pour-une-seconde">Cliquez ici pour recommencer au niveau 1</button>
+      <button type="button" class="bouton-selection-niveau">Cliquez ici pour selectionner un niveau</button>
+    </div>
+    <div class="panneau selection-niveau">
+      <h1 class="titre">SELECTIONNEZ UN NIVEAU</h1>
+      <button type="button" class="bouton-niveau-1"></button>
+      <button type="button" class="bouton-niveau-2"></button>
+      <button type="button" class="bouton-niveau-3"></button>
+      <button type="button" class="bouton-niveau-4"></button>
+      <button type="button" class="bouton-niveau-5"></button>
+      <button type="button" class="bouton-menu">Menu</button>
+      <button type="button" class="bouton-niveau-tutoriel">tutoriel</button>
+      <button type="button" class="bouton-niveau-creation">creer un niveau</button>
+
+    </div>
+    <div class="panneau panneau-jeu">
+    </div>
+    <div class="boutons-dev"></div>
+    <div class="panneau panneau-final">
+      <h1 class="titre">BRAVO! VOUS AVEZ TERMINE LE JEU!</h1>
+    </div>
+
+    <!-- ci-dessous nos modeles -->
+    <div class="jeu modele">
+      <div class="infos instructions">
+        <div class="texte"></div>
+        <div class="boutons">
+          <button type="button" class="retour-bienvenue">Retour a l'ecran de bienvenue</button>
+          <button type="button" class="tutoriel-precedent">Precedent</button>
+          <button type="button" class="tutoriel-suivant">Suivant</button>
+        </div>
+      </div>
+      <div class="jeu-interne"></div>
+      <div class="infos"><span class="nom-du-niveau">Niveau indefini</span>. <span class="niveau-non-tutoriel">Vous avez <span class="nombre-de-vies">...</span> vies. <span class="espace-objectif"></span></div>
+
+    </div>
+
+    <div class="point modele" data-infecte="non" data-joueur="non" data-invincible="non"></div>
+    <div class="collectible modele" data-vitesse="10"></div>
+    <div class="obstacle modele"></div>
+    <div class="alerte-en-pause alerte-en-pause-panneau"></div>
+    <div class="alerte-en-pause alerte-en-pause-texte">VOOUSETETSANPOSE</div>
+  </body>
+</html>

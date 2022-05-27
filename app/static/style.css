@@ -1,0 +1,134 @@
+@font-face {
+  font-family: 'karmatic';
+  src: url('fonts/ka1.ttf') format('truetype');
+}
+* {
+  font-family: 'karmatic', courier;
+}
+
+.titre {
+  color: green;
+  text-align: center;
+  padding: 30px;
+  font-size: 3em;
+
+}
+.game-over .titre {
+  color: white;
+}
+.panneau {
+  width: 100%;
+  height: 80%;
+}
+.cache-pour-une-seconde {
+  display: none;
+}
+.jeu {
+  width: 100%;
+  height: 100%;
+  background: grey;
+  position: relative;
+}
+.ecran-de-bienvenue {
+  background: yellow;
+}
+.prochain-niveau {
+  background: red;
+}
+
+.game-over {
+  background: green;
+}
+.modele {
+  display: none;
+  opacity: 0;
+}
+.point,
+.collectible,
+.obstacle {
+  height: 10px;
+  position: absolute;
+  width: 10px;
+}
+.point {
+  background: green;
+}
+.collectible {
+  background: blue;
+}
+.collectible-avancer-temps {
+  background: DarkOrange;
+}
+.collectible-guerir {
+  background: Fuchsia;
+}
+.infos {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: white;
+}
+.instructions {
+  top: 0;
+  font-size: 20px;
+}
+.obstacle {
+  background: blue;
+  opacity: 0.5;
+}
+.icon {
+  height: 52px;
+  width: 52px;
+  background: url(images/sprite.png);
+  text-indent: -20000px;
+  border: none;
+}
+.icon-play {
+  background-position: 0px -52px;
+}
+.icon-play:hover {
+  background-position: 52px -52px;
+}
+.icon-menu {
+  background-position: 0px -104px;
+}
+.icon-menu:hover {
+  background-position: 52px -104px;
+}
+.point-de-bienvenue {
+  height: 52px !important;
+  width: 52px !important;
+  background: url(images/sprite.png);
+}
+
+/* https://www.w3schools.com/howto/howto_css_center_button.asp */
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.alerte-en-pause {
+  display: none;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.alerte-en-pause-panneau {
+ opacity: 0.5;
+ background: black;
+}
+.alerte-en-pause-texte {
+  font-size: 36px;
+  text-align: center;
+  top: 46%;
+  color: white;
+}
+.intelligent {
+  border: 2px black solid;
+}
