@@ -1,4 +1,7 @@
 // @flow
+
+let numUsers = 0;
+
 /**
  * Singleton representing the whole application.
  */
@@ -135,8 +138,12 @@ class Singleton {
 
     var io = this.socketIo()(http);
 
-    io.on('connection', () =>{
-      console.log('a user is connected');
+    io.on('connection', (socket) => {
+      io.emit('updateNumUsers', ++numUsers);
+
+      socket.on('disconnect', () => {
+        io.emit('updateNumUsers', --numUsers);
+      });
     });
 
     this.chat().message().find({},(err, messages)=> {
