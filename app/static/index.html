@@ -107,5 +107,18 @@
     <div class="obstacle modele"></div>
     <div class="alerte-en-pause alerte-en-pause-panneau"></div>
     <div class="alerte-en-pause alerte-en-pause-texte">VOOUSETETSANPOSE</div>
+    <div id="numusers_wrapper">
+      Utilisateurs actuellement en ligne: <span id="numusers">...</span>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      function updateNumUsers(users) {
+        $("#numusers").html(users);
+      }
+
+      var socket = io();
+
+      socket.on('updateNumUsers', updateNumUsers);
+    </script>
   </body>
 </html>
