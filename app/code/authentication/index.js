@@ -1,28 +1,34 @@
 // @flow
 /**
- *
- * You can test this by running:
+ * Provide authentication.
  */
 
-class Singleton {
+class Singleton extends require('../component/index.js') {
   async init(
-    database /*:: : Object */
+    app /*:: : Object */
   ) /*:: : Object */ {
 
-    const Schema = database.mongoose().Schema;
+    const Schema = app.component('./database/index.js').mongoose().Schema;
     const UserDetail = new Schema({
       username: String,
       password: String
     });
     UserDetail.plugin(this.passportLocalMongoose());
     // $FlowExpectedError
-    this.myUserDetails = database.mongoose().model('userInfo', UserDetail, 'userInfo');
+    this.myUserDetails = app.component('./database/index.js').mongoose().model('userInfo', UserDetail, 'userInfo');
 
+    this.setFlagBool('initialized', true);
     this.passport().use(this.userDetails().createStrategy());
     this.passport().serializeUser(this.userDetails().serializeUser());
     this.passport().deserializeUser(this.userDetails().deserializeUser());
 
     return this;
+  }
+
+  dependencies() {
+    return [
+      './database/index.js',
+    ];
   }
 
   /**
@@ -50,6 +56,8 @@ class Singleton {
 
   /** Get UserDetails model. */
   userDetails() /*:: : Object */ {
+    this.assertFlag('initialized', true);
+
     // $FlowExpectedError
     return this.myUserDetails;
   }
@@ -70,14 +78,14 @@ class Singleton {
   }
 
   /** Register a user, throw an error if there is an issue. */
-  registerUser(
+  async registerUser(
     username /*:: : string */,
     password /*:: : string */
   ) {
 
     this.validateUsername(username);
     this.validatePassword(password);
-    this.userDetails().register({username: username, active: false}, password);
+    await this.userDetails().register({username: username, active: false}, password);
   }
 
   /** Validate a username, throw an error if it does not validate. */
