@@ -3,7 +3,7 @@
  * Get environment variables.
  */
 
-class Singleton {
+class Env {
   required(
     name /*:: : string */
   ) {

@@ -3,7 +3,7 @@
  * Puts a body property in the req.
  */
 
-class Singleton extends require('../component/index.js') {
+class BodyParser extends require('../component/index.js') {
   async init(
     app /*:: : Object */
   ) /*:: : Object */ {

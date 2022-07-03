@@ -3,7 +3,7 @@
  * Provide authentication.
  */
 
-class Singleton extends require('../component/index.js') {
+class Authentication extends require('../component/index.js') {
   async init(
     app /*:: : Object */
   ) /*:: : Object */ {

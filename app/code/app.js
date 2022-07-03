@@ -5,7 +5,7 @@ let numUsers = 0;
 /**
  * Singleton representing the whole application.
  */
-class Singleton {
+class App {
 
   /**
    * Get the number of currently connected users.

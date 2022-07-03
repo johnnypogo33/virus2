@@ -3,7 +3,7 @@
  * Generate random strings.
  */
 
-class Singleton {
+class Random {
   random(size = 32) {
     return require('crypto')
       .randomBytes(size)

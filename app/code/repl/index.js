@@ -3,7 +3,7 @@
  * Provide authentication.
  */
 
-class Singleton extends require('../component/index.js') {
+class Repl extends require('../component/index.js') {
   async run(
     app /*:: : Object */
   ) /*:: : Object */ {

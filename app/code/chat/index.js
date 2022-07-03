@@ -3,7 +3,7 @@
 /**
  * Chat functionality.
  */
-class Singleton extends require('../component/index.js') {
+class Chat extends require('../component/index.js') {
   async init(
     app /*:: : Object */
   ) /*:: : Object */ {

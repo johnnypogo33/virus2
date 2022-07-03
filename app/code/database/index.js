@@ -5,7 +5,7 @@
  * Interact with the database.
  */
 
-class Singleton extends require('../component/index.js') {
+class Database extends require('../component/index.js') {
   async init(
     app /*:: : Object */
   ) /*:: : Object */ {
