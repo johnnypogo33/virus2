@@ -18,11 +18,7 @@ class Singleton {
    * Get the components we want. Depedencies and order will be managed later.
    */
   components() {
-    return [
-      './chat/index.js',
-      './authentication/index.js',
-      './repl/index.js',
-    ];
+    return Object.keys(this.config().modules);
   }
 
   /**
@@ -35,57 +31,42 @@ class Singleton {
     return require(component);
   }
 
-  /**
-   * Mockable wrapper around the body-parser module.
-   */
-  bodyParser() {
-    // $FlowExpectedError
-    return require('body-parser');
-  }
-
-  /**
-   * Mockable wrapper around the express module.
-   */
-  express() {
-    // $FlowExpectedError
-    return require('express');
-  }
-
-  /**
-   * Mockable wrapper around the express-session module.
-   */
-  expressSessionModule() {
-    // $FlowExpectedError
-    return require('express-session');
-  }
-
-  /**
-   * Mockable wrapper around the http module.
-   */
-  http() {
-    // $FlowExpectedError
-    return require('http');
+  config() {
+    return this.component('./config/index.js').config();
   }
 
   /**
    * Init the application and all its dependencies.
+   *
+   * This is done in two phases: the bootstrap, which is core functionality
+   * for loading YML configuration from ./app/config/*; then, to initialize
+   * the actual application functionality.
    */
   async init() {
-    try {
-      const that = this;
+    await this.initBootstrap();
+    await this.initModules();
+  }
 
-      await this.eachComponentAsync(async function(component) {
-        if (typeof that.component(component).init === 'function') {
-          await that.component(component).init(that);
-        }
-      });
-    }
-    catch (err) {
-      console.log('An error occurred during the initialization phase.');
-      console.log(err);
-      console.log('For your safety, we will exit now.');
-      process.exit(1);
-    }
+  /**
+   * Bootstrap the application, required before loading modules.
+   */
+  async initBootstrap() {
+    await this.component('./config/index.js').init(this);
+  }
+
+  /**
+   * Load all modules and their dependencies.
+   *
+   * Your configuration, which is the active modules, are in ./app/config
+   */
+  async initModules() {
+    const that = this;
+
+    await this.eachComponentAsync(async function(component) {
+      if (typeof that.component(component).init === 'function') {
+        await that.component(component).init(that);
+      }
+    });
   }
 
   componentsWithDependencies() {
@@ -130,35 +111,24 @@ class Singleton {
   /**
    * Run the application.
    */
-  run(
-    port /*:: : number */,
-    staticPath /*:: : string */,
-    cliPort /*:: : number */,
-  ) {
-    // App.
-    const app = this.express()();
-
+  run() {
     // $FlowExpectedError
-    const http = this.http().Server(app);
+    const http = this.component('./express/index.js').httpServer();
+    const expressApp = this.component('./express/index.js').expressApp();
 
-    app.use(this.express().static(staticPath));
-    var bodyParser = this.bodyParser();
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({extended: false}));
-
-    const expressSession = this.expressSessionModule()({
+    const expressSession = this.component('express-session')({
       secret: this.component('./env/index.js').required('EXPRESS_SESSION_SECRET'),
       resave: false,
       saveUninitialized: false
     });
 
-    app.use(expressSession);
-    app.use(this.component('./authentication/index.js').passport().initialize());
-    app.use(this.component('./authentication/index.js').passport().session());
+    expressApp.use(expressSession);
+    expressApp.use(this.component('./authentication/index.js').passport().initialize());
+    expressApp.use(this.component('./authentication/index.js').passport().session());
 
     const that = this;
 
-    app.get('/messages', (req, res) => {
+    expressApp.get('/messages', (req, res) => {
       that.component('./chat/index.js').message().find({},(err, messages)=> {
         res.send(messages);
       });
@@ -178,7 +148,7 @@ class Singleton {
       console.log(messages);
     });
 
-    app.post('/messages', (req, res) => {
+    expressApp.post('/messages', (req, res) => {
       var message = new (that.component('./chat/index.js').message())(req.body);
       message.save((err) =>{
         if(err) {
@@ -189,12 +159,12 @@ class Singleton {
       });
     });
 
-    app.get('/login',
+    expressApp.get('/login',
       (req, res) => res.sendFile('login.html',
       { root: '/usr/src/app/private' })
     );
 
-    app.post('/login', (req, res, next) => {
+    expressApp.post('/login', (req, res, next) => {
       this.component('./authentication/index.js').passport().authenticate('local',
       (err, user, info) => {
         if (err) {
@@ -222,22 +192,18 @@ class Singleton {
       })(req, res, next);
     });
 
-    app.get('/', this.component('./authentication/index.js').loggedIn,
+    expressApp.get('/', this.component('./authentication/index.js').loggedIn,
       (req, res) => {
         res.sendFile('private.html',
         { root: '/usr/src/app/private' });
       }
     );
 
-    app.post('/logout', function(req, res, next) {
+    expressApp.post('/logout', function(req, res, next) {
       req.logout(function(err) {
         if (err) { return next(err); }
         res.redirect('/');
       });
-    });
-
-    http.listen(port, function() {
-      console.log('listening on *:' + port);
     });
 
     this.eachComponent(async function(component) {
