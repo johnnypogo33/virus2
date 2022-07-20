@@ -19,18 +19,6 @@ class WebAuth extends require('../component/index.js') {
   ) /*:: : Object */ {
     this._app = app;
 
-    app.config().modules['./webAuth/index.js'].authenticated.forEach((e) => {
-      app.component('./express/index.js').addMiddleware('chat', [
-        app.component('./authentication/index.js').loggedIn]);
-    });
-
-    return this;
-  }
-
-  async run(
-    app /*:: : Object */
-  ) /*:: : Object */ {
-    // $FlowExpectedError
     const expressApp = app.component('./express/index.js').expressApp();
 
     const expressSession = app.component('express-session')({
@@ -42,6 +30,19 @@ class WebAuth extends require('../component/index.js') {
     expressApp.use(expressSession);
     expressApp.use(app.component('./authentication/index.js').passport().initialize());
     expressApp.use(app.component('./authentication/index.js').passport().session());
+
+    app.config().modules['./webAuth/index.js'].authenticated.forEach((e) => {
+      app.component('./express/index.js').addMiddleware(e.route, e.verb, [
+        app.component('./authentication/index.js').loggedIn]);
+    });
+
+    return this;
+  }
+
+  async run(
+    app /*:: : Object */
+  ) /*:: : Object */ {
+    // $FlowExpectedError
 
     app.component('./express/index.js').expressApp().post('/logout', function(req, res, next) {
       req.logout(function(err) {
