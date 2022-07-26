@@ -3,6 +3,14 @@ Dcycle Node.js starterkit
 
 [![CircleCI](https://circleci.com/gh/dcycle/starterkit-node/tree/master.svg?style=svg)](https://circleci.com/gh/dcycle/starterkit-node/tree/master)
 
+* About
+* Strategies, credentials, and accounts
+* Quickstart
+* Creating new users
+* Sending emails
+* The Node.js command line interface (CLI)
+* Resources
+
 About
 -----
 
@@ -36,6 +44,31 @@ Creating new users
 You can run:
 
     ./scripts/reset-password.sh some-new-user
+
+Sending emails
+-----
+
+Your node application can send emails using SMTP. For that you need an SMTP server. In development, we use MailHog. Here is how it works:
+
+Start your instance using `./scripts/deploy.sh`.
+
+Once you have a running instance you will have access to mailhog.
+
+You can send an email by running:
+
+   ./scripts/node-cli-app.js
+
+Then, on the prompt:
+
+    app.component('./mail/index.js').sendMailInDefaultServer({from: 'test@example.com', to: 'test@example.com', subject: 'Hello World', html: '<p>Hello</p>', text: 'Hello'}, (error, info) => { console.log(error); console.log(info); });
+
+Then, you can run:
+
+    docker-compose ps
+
+And visit the URL for MailHog, and you will see your message.
+
+If you would like to use a real SMTP mail server, for production for example, then create a new file `./app/config/unversioned.yml` based on `./app/config/unversioned.example.yml`, and in the myServer section, put your actual SMTP information. The `./app/config/unversioned.example.yml` is not in version control, so you need to edit it directly on your production server.
 
 The Node.js command line interface (CLI)
 -----
