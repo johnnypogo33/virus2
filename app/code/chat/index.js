@@ -7,10 +7,14 @@ class Chat extends require('../component/index.js') {
   async init(
     app /*:: : Object */
   ) /*:: : Object */ {
+    super.init(app);
+
     this.myMessage = app.component('./database/index.js').mongoose().model('Message', {
       name : String,
       message : String,
     });
+
+    return this;
   }
 
   // https://github.com/jshint/jshint/issues/3361
@@ -21,7 +25,6 @@ class Chat extends require('../component/index.js') {
   dependencies() {
     return [
       './database/index.js',
-      './socket/index.js',
       './bodyParser/index.js',
     ];
   }

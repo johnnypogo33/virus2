@@ -28,6 +28,13 @@ class App {
     return './config/index.js';
   }
 
+  class(identifier) {
+    const parts = identifier.split('/');
+    const componentName = parts.shift();
+    const rest = parts.join();
+    return this.component('./' + componentName + '/src/' + rest + '.js');
+  }
+
   /**
    * Get the components we want. Depedencies and order will be managed later.
    *
@@ -108,6 +115,10 @@ class App {
     return require(component);
   }
 
+  c(component) {
+    return this.component('./' + component + '/index.js');
+  }
+
   /**
    * Get the site configuration from ./app/config/*.
    *
@@ -166,15 +177,15 @@ class App {
     });
   }
 
-  async eachComponentAsync(callback) {
+  async eachComponentAsync(actionCallback) {
     for (const component of this.componentsWithDependencies()) {
-      await callback(component);
+      await actionCallback(component);
     }
   }
 
-  eachComponent(callback) {
+  eachComponent(actionCallback) {
     for (const component of this.componentsWithDependencies()) {
-      callback(component);
+      actionCallback(component);
     }
   }
 
@@ -184,6 +195,29 @@ class App {
   async exitGracefully() {
     await this.component('./database/index.js').exitGracefully();
     process.exit(0);
+  }
+
+  /**
+   * See the "Plugins" section in ./README.md.
+   */
+  invokePlugin(componentName, pluginName, callback) {
+    // See https://www.geeksforgeeks.org/how-to-execute-multiple-promises-sequentially-in-javascript/.
+    let result = {};
+    const that = this;
+    let promises = [];
+    for (const component of this.componentsWithDependencies()) {
+      if (typeof that.component(component).invokePlugin === 'function') {
+        that.component(component).invokePlugin(componentName, pluginName, (result) => {
+          // Functions declared within loops referencing an outer scoped variable
+          // may lead to confusing semantics. (callback). This may be true, but
+          // I'm not sure how to do this otherwise: every single plugin is given
+          // the chance to call the callback.
+          /* jshint ignore:start */
+          callback(component, result);
+          /* jshint ignore:end */
+        });
+      }
+    }
   }
 
   /**

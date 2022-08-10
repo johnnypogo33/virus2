@@ -8,6 +8,48 @@ const module_exports /*:: : Object */ = class {
   async init(
     app /*:: : Object */
   ) /*:: : Object */ {
+    // $FlowFixMe
+    this._app = app;
+    return this;
+  }
+
+  assertInitialized() {
+    if (typeof this.app() === 'undefined') {
+      throw this.componentName() + ' has not been initialized';
+    }
+  }
+
+  app() {
+    // $FlowFixMe
+    return this._app;
+  }
+
+  /**
+   * Make the first letter of a string lowercase.
+   */
+  lowerFirstLetter(string) {
+    // https://stackoverflow.com/a/1026087/1207752
+    return string.charAt(0).toLowerCase() + string.slice(1);
+  }
+
+  /**
+   * Get the full path to the component including the trailing slash.
+   */
+  componentDir() {
+    return '/usr/src/app/app/' + this.lowerFirstLetter(this.componentName()) + '/';
+  }
+
+  componentName() {
+    return this.constructor.name;
+  }
+
+  invokePlugin(componentName, pluginName, callback) {
+    this.assertInitialized();
+    const candidateFilename = this.componentDir() + 'plugins/' + componentName + '/' + pluginName + '.js';
+    if (require('fs').existsSync(candidateFilename)) {
+      // $FlowFixMe
+      require(candidateFilename).invoke(this.app(), callback);
+    }
   }
 
   async run(
