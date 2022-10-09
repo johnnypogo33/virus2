@@ -20,6 +20,7 @@ Dcycle Node.js starterkit
   * Components can define classes
 * The Node.js command line interface (CLI)
 * Logging in with GitHub
+* GitHub Apps
 * Resources
 
 About
@@ -330,6 +331,27 @@ Here is how it works:
 
 Now go to https://www.example.com/auth/github and you will be able to log in with GitHub.
 
+GitHub Apps
+-----
+
+Logging in with GitHub will provide access to the GitHub username, email and some other data. GitHub Apps provide acecss to a lot more data, for example private repos.
+
+Here is how to set up a GitHub App:
+
+* Go to https://github.com/settings/apps/new
+* Enter, as a name, "Example App"
+* Check Request user authorization (OAuth) during installation
+* Enter the homepage URL https://starterkit-node.dcycleproject.org
+* Enter the callback URL https://starterkit-node.dcycleproject.org
+* Generate a client secret
+* Copy your client ID and client secret
+
+At this point an authorization token will be provided to your app, allowing you to use the GitHub API endpoints.
+
+For example, if you want your app to be able to access your visitors' public repositories, you can call:
+
+    curl -u GITHUB_USERNAME:ACCESS_TOKEN "https://api.github.com/user/repos?visibility=public"
+
 Resources
 -----
 
@@ -338,3 +360,5 @@ Resources
 * [Everything you need to know about the `passport-local` Passport JS Strategy, Zach Gollwitzer, Jan 11, 2020, Level Up Coding (Medium)](https://levelup.gitconnected.com/everything-you-need-to-know-about-the-passport-local-passport-js-strategy-633bbab6195).
 * [Mastering the Node.js REPL (part 3), Roman Coedo, Aug 27, 2018, Medium](https://medium.com/trabe/mastering-the-node-js-repl-part-3-c0374be0d1bf)
 * [Setup Github OAuth With Node and Passport JS, by Sjlouji, Sept. 22, 2020](https://medium.com/swlh/node-and-passport-js-github-authentication-e33dbd0558c).
+* [How to Use the GitHub API to List Repositories, Carlos Schults, 7 May 2022, Fisebit](https://fusebit.io/blog/github-api-list-repositories/)
+* [Authorizing GitHub Apps, GitHub docs](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/authorizing-github-apps)
