@@ -16,7 +16,7 @@ class Authentication extends require('../component/index.js') {
     });
     UserDetail.plugin(this.passportLocalMongoose());
     // $FlowExpectedError
-    this.myUserDetails = app.component('./database/index.js').mongoose().model('userInfo', UserDetail, 'userInfo');
+    this.myUserDetails = app.c('database').mongoose().model('userInfo', UserDetail, 'userInfo');
 
     this.setFlagBool('initialized', true);
     this.passport().use(this.userDetails().createStrategy());
@@ -115,6 +115,13 @@ class Authentication extends require('../component/index.js') {
 
   async userExists(name) {
     return (await this.userDetails().find({username: name})).length;
+  }
+
+  async userIdExists(id) {
+    // $FlowFixMe
+    const ObjectId  = require('mongodb').ObjectID;
+
+    return (await this.userDetails().find({_id: ObjectId(id)})).length;
   }
 
   async user(name) {
