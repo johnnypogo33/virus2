@@ -37,6 +37,15 @@ You can run:
 
     ./scripts/reset-password.sh some-new-user
 
+How to change the color of the gif monsters
+-----
+
+Gif monsters can be several colors. The original is black and is in ./app/static/images/monster_black.gif.
+
+Non-black colors (in this example red) can be generated like this:
+
+        docker run -v $(pwd):/imgs --rm dpokidov/imagemagick /imgs/monster_black.gif -fill "#ff0000" -opaque "#000000" /imgs/monster_red.gif
+
 Resources
 -----
 

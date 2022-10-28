@@ -174,7 +174,7 @@ var ControlleurFactory = (function () {
           point.placerAleatoire();
           point.devenirIntelligent(niveau.pourcentageIntelligents());
           if (i < niveau.infectes()) {
-            point.infecter(100/100);
+            point.infecterSiPossible(100/100);
           }
           else if (i < niveau.asymptomatique()) {
             point.devenirAsymptomatique(100/100);

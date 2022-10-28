@@ -233,7 +233,11 @@ function creerPoint(jeu, niveau) {
       return 'audio/Impact7.wav';
     },
 
-    infecter: function(chance) {
+    infecter: function() {
+      this.objet.attr('data-infecte', 'oui');
+    },
+
+    infecterSiPossible: function(chance) {
 
       if (Math.random() < chance) {
         if (this.objet.attr('data-joueur') == 'oui') {
@@ -248,10 +252,7 @@ function creerPoint(jeu, niveau) {
           }
         }
         else {
-          if (this.objet.attr('data-asymptomatique') != 'oui') {
-            this.objet.css('background-color', 'red');
-          }
-          this.objet.attr('data-infecte', 'oui');
+          this.infecter();
           return true;
         }
       }
@@ -274,7 +275,7 @@ function creerPoint(jeu, niveau) {
         utilitaires().trouverVoisins(top, left, this.rayon_infection).each(function() {
           point = creerPoint(this.jeu);
           point.utiliserBalise($( this ));
-          point.infecter(100/100);
+          point.infecterSiPossible(100/100);
         });
       }
     },
