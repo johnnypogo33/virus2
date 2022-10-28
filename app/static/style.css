@@ -53,6 +53,13 @@
 .point {
   background: green;
 }
+.point[data-infecte=oui]:not([data-asymptomatique=oui]) {
+  position: absolute;
+  background: url(images/monster_red.gif) no-repeat center center;
+  position: absolute;
+  background-size: 175% 150%;
+
+}
 .collectible {
   background: blue;
 }
