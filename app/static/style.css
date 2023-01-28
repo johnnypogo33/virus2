@@ -55,10 +55,167 @@
 }
 .point[data-infecte=oui]:not([data-asymptomatique=oui]) {
   position: absolute;
-  background: url(images/monster_red.gif) no-repeat center center;
+  background: url(images/enemies/monster_red.gif-variants/offset_1-monster_red.gif) no-repeat center center;
   position: absolute;
   background-size: 175% 150%;
 }
+
+.point[data-infecte=oui][data-random-start-frame="2"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_2-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="3"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_3-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="4"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_4-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="5"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_5-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="6"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_6-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="7"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_7-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="8"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_8-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="9"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_9-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="10"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_10-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="11"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_11-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="12"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_12-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="13"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_13-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="14"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_14-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="15"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_15-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="16"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_16-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="17"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_17-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="18"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_18-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="19"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_19-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="20"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_20-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="21"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_21-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="22"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_22-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="23"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_23-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="24"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_24-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="25"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_25-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="26"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_26-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="27"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_27-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="28"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_28-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="29"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_29-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="30"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_30-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="31"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_31-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="32"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_32-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="33"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_33-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="34"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_34-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="35"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_35-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="36"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_36-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="37"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_37-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="38"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_38-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="39"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_39-monster_red.gif);
+}
+
+.point[data-infecte=oui][data-random-start-frame="40"]:not([data-asymptomatique=oui]) {
+  background-image: url(images/enemies/monster_red.gif-variants/offset_40-monster_red.gif);
+}
+
 .collectible {
   background: blue;
 }

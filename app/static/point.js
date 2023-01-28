@@ -2,6 +2,10 @@ function creerPoint(jeu, niveau) {
   return {
     attente: 50,
 
+    tailleDeBase: 40,
+
+    varianceDeTaille: 5,
+
     random: Math.random(),
 
     retire: false,
@@ -309,7 +313,13 @@ function creerPoint(jeu, niveau) {
     },
 
     creerNouveau: function() {
-      this.utiliserBalise($('.point.modele').clone().removeClass('modele').attr('data-vitesse', this.niveau.vitesse()).css('height', parseInt(8 + Math.random() * 5) + 'px').css('width', parseInt(8 + Math.random() * 5) + 'px'));
+      this.utiliserBalise($('.point.modele')
+        .clone()
+        .removeClass('modele')
+        .attr('data-vitesse', this.niveau.vitesse())
+        .attr('data-random-start-frame', Math.round(Math.random()*39+1))
+        .css('height', parseInt(this.tailleDeBase + Math.random() * this.varianceDeTaille) + 'px')
+        .css('width', parseInt(this.tailleDeBase + Math.random() * this.varianceDeTaille) + 'px'));
     },
 
     enTrainDavancer: {
