@@ -46,6 +46,13 @@ Non-black colors (in this example red) can be generated like this:
 
         docker run -v $(pwd):/imgs --rm dpokidov/imagemagick /imgs/monster_black.gif -fill "#ff0000" -opaque "#000000" /imgs/monster_red.gif
 
+How to make monsters blink at different times
+-----
+
+We have used [GIF Start Frame Offsetter](https://github.com/dcycle/gif-start-frame-offsetter/blob/master/README.md) to create variants of our monster gifs so that they have different cycles.
+
+It is planned to use a script to put a use a random variant for each occurrence, making it look like they are not blinking in unison.
+
 Resources
 -----
 
