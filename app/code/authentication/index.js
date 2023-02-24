@@ -29,6 +29,7 @@ class Authentication extends require('../component/index.js') {
   dependencies() {
     return [
       './database/index.js',
+      './crypto/index.js',
     ];
   }
 
@@ -91,6 +92,59 @@ class Authentication extends require('../component/index.js') {
     let obj = {};
     obj[fieldName] = fieldValue;
     return obj;
+  }
+
+  async uniqueFieldToUsername(
+    fieldName,
+    fieldValue,
+    desiredUsername
+  ) {
+    this.validateUsername(desiredUsername);
+    const existing = await this.asyncUserWithUniqueFieldValueIfExists(fieldName, fieldValue);
+
+    if (existing) {
+      return existing;
+    }
+
+    const username = await this.newUsernameLike(desiredUsername);
+
+    const user = await this
+      .createOrAlterUser(username, this.app().c('crypto').random());
+
+    await this.addUniqueFieldToUser(username, fieldName, fieldValue);
+
+    return username;
+  }
+
+  async newUsernameLike(
+    desiredUsername
+  ) /*:: : Promise<string> */ {
+    let candidate = desiredUsername;
+    let count = 1;
+
+    do {
+      if (!await this.userExists(candidate)) {
+        await this.registerUser(candidate, this.app().c('crypto').random());
+        return candidate;
+      }
+      candidate = desiredUsername + (count++);
+    } while (true);
+
+    return '';
+  }
+
+  async asyncUserWithUniqueFieldValueIfExists(
+    fieldName,
+    fieldValue
+  ) {
+    const searchObj = this.fieldNameValToObj(fieldName, fieldValue);
+
+    const users = await this.collection().find(searchObj).toArray();
+
+    if (users.length) {
+      return users[0].username;
+    }
+    return '';
   }
 
   ifUserWithUniqueFieldExists(
@@ -171,19 +225,22 @@ class Authentication extends require('../component/index.js') {
 
   /** Validate a username, throw an error if it does not validate. */
   validateUsername(
-    username /*:: : string */
+    username
   ) {
-    this.valiedateGenericNonEmpty(username, 'Usernames');
+    if (typeof username === 'undefined') {
+      throw Error('Username cannot be undefined.');
+    }
+    this.validateGenericNonEmpty(username, 'Usernames');
   }
 
   /** Validate a password, throw an error if it does not validate. */
   validatePassword(
     password /*:: : string */
   ) {
-    this.valiedateGenericNonEmpty(password, 'Passowords');
+    this.validateGenericNonEmpty(password, 'Passowords');
   }
 
-  valiedateGenericNonEmpty(
+  validateGenericNonEmpty(
     value,
     message
   ) {
@@ -195,13 +252,13 @@ class Authentication extends require('../component/index.js') {
   validateUniqueFieldName(
     fieldName /*:: : string */
   ) {
-    this.valiedateGenericNonEmpty(fieldName, 'Field names');
+    this.validateGenericNonEmpty(fieldName, 'Field names');
   }
 
   validateUniqueFieldValue(
     uniqueFieldValue /*:: : string */
   ) {
-    this.valiedateGenericNonEmpty(uniqueFieldValue, 'Unique field values');
+    this.validateGenericNonEmpty(uniqueFieldValue, 'Unique field values');
   }
 
   async allUsers() {

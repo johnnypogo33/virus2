@@ -20,6 +20,36 @@ class LoginWithGitHub extends require('../component/index.js') {
     return this.app().config().modules['./loginWithGitHub/index.js'].baseUrl + this.callbackPath();
   }
 
+  async profileToUsername(
+    profile,
+    callback
+  ) {
+    const gitHubUsername = this.profileToGitHubUsername(profile);
+
+    return await this.app().c('authentication').
+      uniqueFieldToUsername(
+        'github_username',
+        gitHubUsername,
+        gitHubUsername
+      );
+  }
+
+  profileToGitHubUsername(
+    profile
+  ) {
+    const candidate = profile.username;
+
+    if (typeof candidate === 'undefined') {
+      throw 'Cannot extract username from profile.';
+    }
+
+    if (!candidate) {
+      throw 'Username cannot be empty.';
+    }
+
+    return candidate;
+  }
+
   async init(
     app /*:: : Object */
   ) /*:: : Object */ {
@@ -37,12 +67,11 @@ class LoginWithGitHub extends require('../component/index.js') {
       clientID: client,
       clientSecret: secret,
       callbackURL: that.callbackURL(),
-    },
-    function(accessToken, refreshToken, profile, done) {
-
+    }, async (accessToken, refreshToken, profile, done) => {
+      const username = await that.profileToUsername(profile);
       app.c('authentication')
-        .user('admin')
-        .then(function(user) {
+        .user(username)
+        .then((user) => {
           done(null, user);
         });
     }));
