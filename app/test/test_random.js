@@ -1,45 +1,29 @@
-/**
- * Test random.js.
- *
- * Use Mocha, Chai and Sinon to run unit tests on ./app/code/random.js.
- *
- * To run these these tests, install Docker and type:
- *
- *     ./scripts/unit-tests-node.sh
- */
+const test = require('ava');
+const sinon = require('sinon');
 
-(function () {
-  'use strict';
+let my = require('/mycode/crypto/index.js');
 
-  var expect = require('chai').expect;
-  var log = require('../app/random.js');
-  var sinon = require('sinon');
-  var fs = require('fs');
-
-  /**
-   * Test addTwoNumbers().
-   */
-  describe('addTwoNumbers()', function () {
-    /**
-     * Data provider for this test.
-     */
-    const assertions = [
-      { first: 5, second: 1 },
-      { first: -10000, second: -80 },
-      { first: -99999, second: -99999 },
-    ];
-
-    /**
-     * Test logic to test addTwoNumbers().
-     */
-    assertions.forEach(({first, second}) => {
-      describe(`Adding ${first} and ${second}`, function() {
-        var result = first + second;
-        it(`should return ${result}`, function() {
-          var sum2 = log.addTwoNumbers(first, second);
-          expect(sum2).to.be.equal(result);
-        });
-      });
-    });
+test('Random is truly random', t => {
+  [
+    {
+      size: 32,
+      same: false,
+    },
+    {
+      size: 256,
+      same: false,
+    },
+    {
+      size: 0,
+      same: true,
+    },
+    {
+      size: -20,
+      same: true,
+    },
+  ].forEach(function(data) {
+    const a = my.random(data.size);
+    const b = my.random(data.size);
+    t.true(data.same ? a === b : a !== b, data.same ? 'same' : 'different' + ' as expected with a size of ' + data.size);
   });
-}());
+});

@@ -1,12 +1,12 @@
-// @flow
 /**
  * Get environment variables.
  */
 
-class Singleton {
+class Env {
   required(
     name /*:: : string */
   ) {
+    // @ts-expect-error
     const candidate = process.env[name];
     if (typeof candidate === 'undefined') {
       throw Error('Environemnt variable ' + name + ' is required.');
@@ -18,6 +18,7 @@ class Singleton {
     name /*:: : string */,
     fallback /*:: : string */
   ) {
+    // @ts-expect-error
     const candidate = process.env[name];
     if (typeof candidate === 'undefined' || candidate === '') {
       return fallback;
@@ -26,5 +27,4 @@ class Singleton {
   }
 }
 
-// $FlowExpectedError
-module.exports = new Singleton();
+module.exports = new Env();

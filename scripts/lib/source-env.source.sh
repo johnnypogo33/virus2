@@ -15,8 +15,7 @@ fi
 source "$ENVLOC"
 
 if [ -z "$ENVIRONMENT_USAGE" ]; then
-  echo "ENVIRONMENT_USAGE does not exist in $ENVLOC"
-  # ENVIRONMENT_USAGE does not exist, we'll set it later.
+  echo "ENVIRONMENT_USAGE does not exist in $ENVLOC, it will be set later. Moving on."
 else
   if [ "$ENVIRONMENT_USAGE" != "$TARGET_ENV" ]; then
     >&2 echo "Environments are not the same: $ENVIRONMENT_USAGE != $TARGET_ENV"
@@ -37,6 +36,7 @@ grep ENVIRONMENT_USAGE "$ENVLOC" > /dev/null || echo "export ENVIRONMENT_USAGE=d
 grep DOCKERPORT "$ENVLOC" > /dev/null || echo "export DOCKERPORT=$DOCKERPORT" >> "$ENVLOC"
 grep DOCKERNETWORK "$ENVLOC" > /dev/null || echo "export DOCKERNETWORK=$DOCKERNETWORK" >> "$ENVLOC"
 grep EXPRESS_SESSION_SECRET "$ENVLOC" > /dev/null || echo "export EXPRESS_SESSION_SECRET=$(./scripts/lib/generate-uuid.sh)" >> "$ENVLOC"
+grep SALT "$ENVLOC" > /dev/null || echo "export SALT=$(./scripts/lib/generate-uuid.sh)" >> "$ENVLOC"
 grep ENVIRONMENT_USAGE "$ENVLOC" > /dev/null || echo "export ENVIRONMENT_USAGE=$TARGET_ENV" >> "$ENVLOC"
 
 source "$ENVLOC"

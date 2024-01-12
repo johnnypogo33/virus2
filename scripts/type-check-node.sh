@@ -1,8 +1,16 @@
 #!/bin/bash
 #
-# Run unit tests on node scripts.
+# Type check our Javascript code.
 set -e
 
-echo '=> Running type checking using flow.'
+echo '=> Running type checking using TypeScript.'
+echo '=> Using http://github.com/dcycle/docker-typescript'
+echo '=>'
+echo '=> To ignore the next line add:'
+echo '=> // @ts-expect-error'
+echo '=>'
 
-docker run --rm -v "$(pwd)"/app/code:/app/code dcycle/flow:1
+find ./app/code -name "*.js" -print0 | \
+  xargs -0  docker run --rm -v "$(pwd)":/code \
+  dcycle/typescript:1 \
+  --noEmit --checkJs --target es6

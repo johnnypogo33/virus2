@@ -1,0 +1,51 @@
+---
+modules:
+  ./webAuth/index.js:
+    authenticated:
+      - route: chat
+        verb: get
+      - route: chatApi
+        verb: get
+      - route: chatApi
+        verb: post
+    authenticatedJson:
+      - route: tokenRequest
+        verb: get
+    anonymous:
+      - route: tokenCheck
+        verb: get
+      - route: rest
+        verb: get
+  ./rest/index.js:
+    path: '/api/v1'
+  ./chatWeb/index.js:
+    path: '/'
+  ./userPassAuth/index.js: {}
+  # This can be overridden in unversioned.yml, as per the example in
+  # ./app/config/unversioned.example.yml.
+  ./mail/index.js:
+    defaultServer:
+      name: mailhog
+      component: './smtp/index.js'
+  ./smtp/index.js:
+    servers:
+      mailhog:
+        host: mail
+        port: 1025
+        secure: false
+        user: ""
+        pass: ""
+  ./numUsers/index.js: {}
+  ./loginWithGitHub/index.js:
+    client: 'override this in ./app/config/unversioned.yml; see README.md'
+    secret: 'override this in ./app/config/unversioned.yml; see README.md'
+    baseUrl: 'override this in ./app/config/unversioned.yml; see README.md'
+    callback: '/auth/github/callback'
+  ./repl/index.js:
+    port: 8001
+  ./express/index.js:
+    port: 8080
+  ./staticPath/index.js:
+    paths:
+      - /usr/src/app/static
+  ./dashboardApi/index.js: {}

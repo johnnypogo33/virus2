@@ -9,6 +9,8 @@ services:
       - "./app/private:/usr/src/app/private"
       - "./app/code:/usr/src/app/app"
       - "./app/test:/usr/src/app/test"
+      - "./app/config:/usr/src/app/config"
+      - "./app/views:/usr/src/app/views"
     links:
       - mongo:mongo
     environment:
@@ -27,7 +29,7 @@ services:
       - LETSENCRYPT_HOST=www.notavirus.ca
       - LETSENCRYPT_EMAIL="letsencrypt@www.notavirus.ca"
       - EXPRESS_SESSION_SECRET=${EXPRESS_SESSION_SECRET}
-
+      - SALT=${SALT}
     ports:
       - "${DOCKERPORT}:8080"
 
@@ -48,8 +50,8 @@ services:
 # See https://github.com/docker/compose/issues/3736.
 networks:
   default:
-    external:
-      name: ${DOCKERNETWORK}
+    name: ${DOCKERNETWORK}
+    external: true
 
 volumes:
   mongo:
